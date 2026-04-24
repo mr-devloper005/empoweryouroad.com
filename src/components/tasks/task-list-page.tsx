@@ -27,8 +27,9 @@ const taskIcons: Record<TaskKey, any> = {
 const variantShells = {
   'listing-directory': 'bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.08),transparent_24%),linear-gradient(180deg,#f8fbff_0%,#ffffff_100%)]',
   'listing-showcase': 'bg-[linear-gradient(180deg,#ffffff_0%,#f4f9ff_100%)]',
-  'article-editorial': 'bg-[radial-gradient(circle_at_top_left,rgba(251,191,36,0.08),transparent_20%),linear-gradient(180deg,#fff8ef_0%,#ffffff_100%)]',
-  'article-journal': 'bg-[linear-gradient(180deg,#fffdf9_0%,#f7f1ea_100%)]',
+  'article-editorial':
+    'bg-[radial-gradient(ellipse_80%_50%_at_0%_0%,rgba(250,235,146,0.3),transparent_50%),linear-gradient(180deg,#faf6ff_0%,#ffffff_100%)]',
+  'article-journal': 'bg-[linear-gradient(180deg,#fffcff_0%,#f6edff_100%)]',
   'image-masonry': 'bg-[linear-gradient(180deg,#09101d_0%,#111c2f_100%)] text-white',
   'image-portfolio': 'bg-[linear-gradient(180deg,#07111f_0%,#13203a_100%)] text-white',
   'profile-creator': 'bg-[linear-gradient(180deg,#0a1120_0%,#101c34_100%)] text-white',
@@ -71,11 +72,11 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
       }
     : layoutKey.startsWith('article') || layoutKey.startsWith('sbm')
       ? {
-          muted: 'text-[#72594a]',
-          panel: 'border border-[#dbc6b6] bg-white/90',
-          soft: 'border border-[#dbc6b6] bg-[#fff8ef]',
-          input: 'border border-[#dbc6b6] bg-white text-[#2f1d16]',
-          button: 'bg-[#2f1d16] text-[#fff4e4] hover:bg-[#452920]',
+          muted: 'text-[#4a3b55]',
+          panel: 'border border-[#e4d4f2] bg-white/95 shadow-[0_20px_50px_rgba(50,20,100,0.08)]',
+          soft: 'border border-[#e4d4f2] bg-[#faf5ff]',
+          input: 'border border-[#e4d4f2] bg-white text-[#0a0a0a]',
+          button: 'bg-[#9929ea] text-white hover:bg-[#8719d6]',
         }
       : {
           muted: 'text-slate-600',
@@ -147,24 +148,45 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
         ) : null}
 
         {layoutKey === 'article-editorial' || layoutKey === 'article-journal' ? (
-          <section className="mb-12 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
-            <div>
-              <p className={`text-xs uppercase tracking-[0.3em] ${ui.muted}`}>{taskConfig?.label || task}</p>
-              <h1 className="mt-3 max-w-4xl text-5xl font-semibold tracking-[-0.05em] text-foreground">{taskConfig?.description || 'Latest posts'}</h1>
-              <p className={`mt-5 max-w-2xl text-sm leading-8 ${ui.muted}`}>This reading surface uses slower pacing, stronger typographic hierarchy, and more breathing room so long-form content feels intentional rather than squeezed into a generic feed.</p>
-            </div>
-            <div className={`rounded-[2rem] p-6 ${ui.panel}`}>
-              <p className={`text-xs font-semibold uppercase tracking-[0.24em] ${ui.muted}`}>Reading note</p>
-              <p className={`mt-4 text-sm leading-7 ${ui.muted}`}>Use category filters to jump between topics without collapsing the page into the same repeated card rhythm used by other task types.</p>
-              <form className="mt-5 flex items-center gap-3" action={taskConfig?.route || '#'}>
-                <select name="category" defaultValue={normalizedCategory} className={`h-11 flex-1 rounded-xl px-3 text-sm ${ui.input}`}>
-                  <option value="all">All categories</option>
-                  {CATEGORY_OPTIONS.map((item) => (
-                    <option key={item.slug} value={item.slug}>{item.name}</option>
-                  ))}
-                </select>
-                <button type="submit" className={`h-11 rounded-xl px-4 text-sm font-medium ${ui.button}`}>Apply</button>
-              </form>
+          <section className="mb-12 overflow-hidden rounded-[2rem] border border-[#e4d4f2] bg-gradient-to-br from-white via-[#faf5ff] to-[#faeb92]/20">
+            <div className="grid gap-0 lg:grid-cols-[0.9fr_1.1fr]">
+              <div className="flex flex-col justify-center border-b border-[#e4d4f2]/60 p-7 sm:p-9 lg:border-b-0 lg:border-r">
+                <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#9929ea]">{taskConfig?.label || task}</p>
+                <h1
+                  className="mt-3 max-w-2xl text-4xl font-bold leading-tight text-[#0a0a0a] sm:text-5xl"
+                  style={{ fontFamily: 'var(--font-lobster), cursive' }}
+                >
+                  {taskConfig?.description || 'Latest posts'}
+                </h1>
+                <p className={`mt-5 max-w-xl text-sm leading-8 ${ui.muted}`}>
+                  Curated for empoweryouroad.com: scan by category, then open an article for the full purple-and-butter
+                  reading layout.
+                </p>
+              </div>
+              <div className="p-6 sm:p-8">
+                <p className={`text-xs font-bold uppercase tracking-[0.24em] text-[#7a5f8a]`}>Refine by topic</p>
+                <p className={`mt-2 text-sm leading-7 ${ui.muted}`}>
+                  Filters use the same query parameters as the rest of the platform—this block is only a different
+                  frame around the list.
+                </p>
+                <form className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center" action={taskConfig?.route || '#'}>
+                  <select
+                    name="category"
+                    defaultValue={normalizedCategory}
+                    className={`h-11 w-full flex-1 rounded-2xl px-3 text-sm sm:min-w-0 ${ui.input}`}
+                  >
+                    <option value="all">All categories</option>
+                    {CATEGORY_OPTIONS.map((item) => (
+                      <option key={item.slug} value={item.slug}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                  <button type="submit" className={`h-11 shrink-0 rounded-2xl px-6 text-sm font-semibold ${ui.button}`}>
+                    Apply
+                  </button>
+                </form>
+              </div>
             </div>
           </section>
         ) : null}

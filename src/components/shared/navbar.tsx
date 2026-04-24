@@ -41,12 +41,12 @@ const variantClasses = {
     mobile: 'border-t border-slate-200/70 bg-white/95',
   },
   'editorial-bar': {
-    shell: 'border-b border-[#d7c4b3] bg-[#fff7ee]/90 text-[#2f1d16] backdrop-blur-xl',
-    logo: 'rounded-full border border-[#dbc6b6] bg-white shadow-sm',
-    active: 'bg-[#2f1d16] text-[#fff4e4]',
-    idle: 'text-[#72594a] hover:bg-[#f2e5d4] hover:text-[#2f1d16]',
-    cta: 'rounded-full bg-[#2f1d16] text-[#fff4e4] hover:bg-[#452920]',
-    mobile: 'border-t border-[#dbc6b6] bg-[#fff7ee]',
+    shell: 'border-b border-[#e4d4f2]/90 bg-[#faf6ff]/95 text-[#0a0a0a] shadow-[0_1px_0_rgba(153,41,234,0.06)] backdrop-blur-xl',
+    logo: 'rounded-2xl border border-[#e4d4f2] bg-white shadow-sm',
+    active: 'bg-[#9929ea] text-white',
+    idle: 'text-[#4a3b55] hover:bg-[#f3e8ff] hover:text-[#0a0a0a]',
+    cta: 'rounded-full bg-[#9929ea] text-white shadow-[0_8px_30px_rgba(120,30,200,0.25)] hover:bg-[#8719d6]',
+    mobile: 'border-t border-[#e4d4f2] bg-[#fffcff]',
   },
   'floating-bar': {
     shell: 'border-b border-transparent bg-transparent text-white',
@@ -114,14 +114,14 @@ export function Navbar() {
       <header className={cn('sticky top-0 z-50 w-full', palette.shell)}>
         <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           <div className="flex min-w-0 items-center gap-4">
-            <Link href="/" className="flex shrink-0 items-center gap-3">
-              <div className={cn('flex h-12 w-12 items-center justify-center overflow-hidden p-1.5', palette.logo)}>
-                <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full object-contain" />
-              </div>
-              <div className="min-w-0 hidden sm:block">
-                <span className="block truncate text-xl font-semibold">{SITE_CONFIG.name}</span>
-                <span className="block text-[10px] uppercase tracking-[0.24em] opacity-60">{siteContent.navbar.tagline}</span>
-              </div>
+            <Link href="/" className="flex shrink-0 items-center" aria-label={SITE_CONFIG.name}>
+              <img
+                src="/favicon.png?v=20260424d"
+                alt=""
+                width={280}
+                height={48}
+                className="h-9 w-auto max-h-10 object-contain object-left sm:h-10 sm:max-h-11 max-w-[min(78vw,280px)]"
+              />
             </Link>
 
             <div className="hidden items-center gap-5 xl:flex">
@@ -209,28 +209,33 @@ export function Navbar() {
     <header className={cn('sticky top-0 z-50 w-full', style.shell)}>
       <nav className={cn('mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8', isFloating ? 'h-24 pt-4' : 'h-20')}>
         <div className="flex min-w-0 flex-1 items-center gap-4 lg:gap-7">
-          <Link href="/" className="flex shrink-0 items-center gap-3 whitespace-nowrap pr-2">
-            <div className={cn('flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden p-1.5', style.logo)}>
-              <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full object-contain" />
-            </div>
-            <div className="min-w-0 hidden sm:block">
-              <span className="block truncate text-xl font-semibold">{SITE_CONFIG.name}</span>
-              <span className="hidden text-[10px] uppercase tracking-[0.28em] opacity-70 sm:block">{siteContent.navbar.tagline}</span>
-            </div>
+          <Link href="/" className="flex shrink-0 items-center pr-2" aria-label={SITE_CONFIG.name}>
+            <img
+              src="/favicon.png?v=20260424d"
+              alt=""
+              width={300}
+              height={52}
+              className="h-9 w-auto max-h-10 object-contain object-left sm:h-10 sm:max-h-12 max-w-[min(75vw,300px)]"
+            />
           </Link>
 
           {isEditorial ? (
-            <div className="hidden min-w-0 flex-1 items-center gap-4 xl:flex">
-              <div className="h-px flex-1 bg-[#d8c8bb]" />
+            <div className="hidden min-w-0 flex-1 items-center justify-center gap-1 xl:flex">
               {primaryNavigation.map((task) => {
                 const isActive = pathname.startsWith(task.route)
                 return (
-                  <Link key={task.key} href={task.route} className={cn('text-sm font-semibold uppercase tracking-[0.18em] transition-colors', isActive ? 'text-[#2f1d16]' : 'text-[#7b6254] hover:text-[#2f1d16]')}>
+                  <Link
+                    key={task.key}
+                    href={task.route}
+                    className={cn(
+                      'rounded-full px-3 py-2 text-sm font-semibold transition-colors',
+                      isActive ? 'text-[#9929ea] underline decoration-[#faeb92] decoration-2 underline-offset-4' : 'text-[#4a3b55] hover:text-[#0a0a0a]',
+                    )}
+                  >
                     {task.label}
                   </Link>
                 )
               })}
-              <div className="h-px flex-1 bg-[#d8c8bb]" />
             </div>
           ) : isFloating ? (
             <div className="hidden min-w-0 flex-1 items-center gap-2 xl:flex">
@@ -295,7 +300,7 @@ export function Navbar() {
                 <Link href="/login">Sign In</Link>
               </Button>
               <Button size="sm" asChild className={style.cta}>
-                <Link href="/register">{isEditorial ? 'Subscribe' : isUtility ? 'Post Now' : 'Get Started'}</Link>
+                <Link href="/register">{isEditorial ? 'Join' : isUtility ? 'Post Now' : 'Get Started'}</Link>
               </Button>
             </div>
           )}

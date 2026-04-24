@@ -27,9 +27,9 @@ export const siteTaskDefinitions = [
     key: 'image',
     label: 'Images',
     route: '/images',
-    description: 'Galleries and media-first posts.',
+    description: 'Colorful visual stories and media-first posts.',
     contentType: 'image',
-    enabled: false,
+    enabled: true,
   },
   {
     key: 'profile',

@@ -1,4 +1,3 @@
-import { ContentImage } from "@/components/shared/content-image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MapPin, Globe, Phone, Tag, Mail } from "lucide-react";
@@ -12,12 +11,12 @@ import { SITE_CONFIG, getTaskConfig, type TaskKey } from "@/lib/site-config";
 import type { SitePost } from "@/lib/site-connector";
 import { TaskImageCarousel } from "@/components/tasks/task-image-carousel";
 import { cn } from "@/lib/utils";
-import { ArticleComments } from "@/components/tasks/article-comments";
 import { SchemaJsonLd } from "@/components/seo/schema-jsonld";
 import { RichContent, formatRichHtml } from "@/components/shared/rich-content";
 import { getFactoryState } from "@/design/factory/get-factory-state";
 import { getProductKind } from "@/design/factory/get-product-kind";
 import { DirectoryTaskDetailPage } from "@/design/products/directory/task-detail-page";
+import { ArticleReadingLayout } from "@/components/tasks/article-reading-layout";
 import { TASK_DETAIL_PAGE_OVERRIDE_ENABLED, TaskDetailPageOverride } from "@/overrides/task-detail-page";
 
 type PostContent = {
@@ -247,6 +246,72 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
     );
   }
 
+  if (isArticle) {
+    return (
+      <div className="min-h-screen bg-background">
+        <NavbarShell />
+        <SchemaJsonLd data={schemaPayload} />
+        <ArticleReadingLayout
+          postTitle={post.title}
+          articleAuthor={articleAuthor}
+          articleDate={articleDate}
+          category={String(category)}
+          articleSummary={articleSummary}
+          postTags={postTags}
+          leadImage={images[0] || null}
+          articleHtml={articleHtml}
+          postSlug={post.slug}
+          backHref={taskConfig?.route || "/articles"}
+          backLabel={taskConfig?.label || "Articles"}
+        />
+        <section className="mx-auto max-w-5xl border-t border-border/60 px-4 py-10 sm:px-6 lg:px-8">
+          {related.length ? (
+            <>
+              <div className="mb-4 flex items-center justify-between">
+                <h2 className="text-xl font-semibold text-foreground">More in {String(category)}</h2>
+                {taskConfig?.route && (
+                  <Link href={taskConfig.route} className="text-sm text-muted-foreground hover:text-foreground">
+                    View all
+                  </Link>
+                )}
+              </div>
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {related.map((item) => (
+                  <TaskPostCard key={item.id} post={item} href={buildPostUrl(task, item.slug)} />
+                ))}
+              </div>
+            </>
+          ) : null}
+          <nav className="mt-6 rounded-2xl border border-border bg-card/60 p-4">
+            <p className="text-sm font-semibold text-foreground">Related links</p>
+            <ul className="mt-2 space-y-2 text-sm">
+              {related.map((item) => (
+                <li key={`link-${item.id}`}>
+                  <Link href={buildPostUrl(task, item.slug)} className="text-primary underline-offset-4 hover:underline">
+                    {item.title}
+                  </Link>
+                </li>
+              ))}
+              {taskConfig?.route ? (
+                <li>
+                  <Link href={taskConfig.route} className="text-primary underline-offset-4 hover:underline">
+                    Browse all {taskConfig.label}
+                  </Link>
+                </li>
+              ) : null}
+              <li>
+                <Link href={`/search?q=${encodeURIComponent(String(category))}`} className="text-primary underline-offset-4 hover:underline">
+                  Search more in {String(category)}
+                </Link>
+              </li>
+            </ul>
+          </nav>
+        </section>
+        <Footer />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <NavbarShell />
@@ -266,48 +331,6 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
           )}
         >
           <div className={cn(isClassified ? "space-y-8" : "")}>
-            {isArticle ? (
-              <div className="mx-auto w-full max-w-4xl space-y-6">
-                <h1 className="text-4xl font-semibold leading-tight text-foreground">
-                  {post.title}
-                </h1>
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
-                  <span>By {articleAuthor}</span>
-                  {articleDate ? <span>{articleDate}</span> : null}
-                  <Badge variant="secondary" className="inline-flex items-center gap-1">
-                    <Tag className="h-3.5 w-3.5" />
-                    {category}
-                  </Badge>
-                </div>
-                {postTags.length ? (
-                  <div className="flex flex-wrap gap-2">
-                    {postTags.map((tag) => (
-                      <Badge key={tag} variant="outline">
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-                ) : null}
-                {articleSummary ? (
-                  <p className="text-base leading-7 text-muted-foreground">{articleSummary}</p>
-                ) : null}
-                {images[0] ? (
-                  <div className="relative aspect-[16/9] w-full overflow-hidden rounded-3xl border border-border bg-muted">
-                    <ContentImage
-                      src={images[0]}
-                      alt={`${post.title} featured image`}
-                      fill
-                      className="object-cover"
-                      intrinsicWidth={1600}
-                      intrinsicHeight={900}
-                    />
-                  </div>
-                ) : null}
-                <RichContent html={articleHtml} className="leading-8 prose-p:my-6 prose-h2:my-8 prose-h3:my-6 prose-ul:my-6" />
-                <ArticleComments slug={post.slug} />
-              </div>
-            ) : null}
-
             {!isArticle ? (
               <>
                 {!isBookmark ? (

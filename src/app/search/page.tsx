@@ -89,10 +89,10 @@ export default async function SearchPage({
               name="q"
               defaultValue={query}
               placeholder="Search across tasks..."
-              className="h-11 pl-9"
+              className="h-11 rounded-full border-[#e4d4f2] bg-white pl-9 shadow-sm"
             />
           </div>
-          <Button type="submit" className="h-11">
+          <Button type="submit" className="h-11 rounded-full bg-[#9929ea] px-6 text-white hover:bg-[#8719d6]">
             Search
           </Button>
         </form>
@@ -107,8 +107,8 @@ export default async function SearchPage({
           })}
         </div>
       ) : (
-        <div className="rounded-2xl border border-dashed border-border p-10 text-center text-muted-foreground">
-          No matching posts yet.
+        <div className="rounded-2xl border border-dashed border-[#e4d4f2] bg-[#faf5ff]/50 p-10 text-center text-[#4a3b55]">
+          No matching posts yet. Try a shorter query or browse from the article and image sections in the navigation.
         </div>
       )}
     </PageShell>

@@ -8,8 +8,8 @@ export const SITE_RECIPE: SiteRecipe = {
   footerTemplate: 'editorial-footer',
   motionPack: 'editorial-soft',
   primaryTask: 'article',
-  enabledTasks: ['article'],
-  taskTemplates: { article: 'article-editorial' },
+  enabledTasks: ['article', 'image'],
+  taskTemplates: { article: 'article-editorial', image: 'image-portfolio' },
   manualOverrides: {
     navbar: false,
     footer: false,

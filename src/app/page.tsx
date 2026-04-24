@@ -1,6 +1,21 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, Bookmark, Building2, Compass, FileText, Globe2, Image as ImageIcon, LayoutGrid, MapPin, ShieldCheck, Tag, User } from 'lucide-react'
+import {
+  ArrowRight,
+  Bookmark,
+  Building2,
+  Compass,
+  FileText,
+  Image as ImageIcon,
+  LayoutGrid,
+  MapPin,
+  ShieldCheck,
+  Smartphone,
+  Tag,
+  Tablet,
+  User,
+  Zap,
+} from 'lucide-react'
 import { ContentImage } from '@/components/shared/content-image'
 import { NavbarShell } from '@/components/shared/navbar-shell'
 import { Footer } from '@/components/shared/footer'
@@ -96,19 +111,6 @@ function getDirectoryTone(brandPack: string) {
     badge: 'bg-slate-950 text-white',
     action: 'bg-slate-950 text-white hover:bg-slate-800',
     actionAlt: 'border border-slate-200 bg-white text-slate-950 hover:bg-slate-100',
-  }
-}
-
-function getEditorialTone() {
-  return {
-    shell: 'bg-[#fbf6ee] text-[#241711]',
-    panel: 'border border-[#dcc8b7] bg-[#fffdfa] shadow-[0_24px_60px_rgba(77,47,27,0.08)]',
-    soft: 'border border-[#e6d6c8] bg-[#fff4e8]',
-    muted: 'text-[#6e5547]',
-    title: 'text-[#241711]',
-    badge: 'bg-[#241711] text-[#fff1e2]',
-    action: 'bg-[#241711] text-[#fff1e2] hover:bg-[#3a241b]',
-    actionAlt: 'border border-[#dcc8b7] bg-transparent text-[#241711] hover:bg-[#f5e7d7]',
   }
 }
 
@@ -268,77 +270,260 @@ function DirectoryHome({ primaryTask, enabledTasks, listingPosts, classifiedPost
   )
 }
 
-function EditorialHome({ primaryTask, articlePosts, supportTasks }: { primaryTask?: EnabledTask; articlePosts: SitePost[]; supportTasks: EnabledTask[] }) {
-  const tone = getEditorialTone()
+function EditorialHome({
+  primaryTask,
+  articlePosts,
+  imagePosts,
+  supportTasks,
+}: {
+  primaryTask?: EnabledTask
+  articlePosts: SitePost[]
+  imagePosts: SitePost[]
+  supportTasks: EnabledTask[]
+}) {
   const lead = articlePosts[0]
   const side = articlePosts.slice(1, 5)
+  const hero = siteContent.hero
+  const previewImg = lead ? getPostImage(lead) : imagePosts[0] ? getPostImage(imagePosts[0]) : '/placeholder.svg?height=900&width=1400'
+  const chips = hero.chips
 
   return (
-    <main className={tone.shell}>
-      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-18">
-        <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
+    <main className="relative overflow-hidden bg-[#faf6ff] text-[#0a0a0a]">
+      <div className="pointer-events-none absolute -left-24 top-0 h-96 w-96 rounded-full bg-[rgba(250,235,146,0.4)] blur-3xl" />
+      <div className="pointer-events-none absolute -right-20 top-32 h-80 w-80 rounded-full bg-[rgba(204,102,218,0.18)] blur-3xl" />
+      <div className="pointer-events-none absolute bottom-0 left-1/3 h-64 w-64 rounded-full bg-[rgba(153,41,234,0.1)] blur-3xl" />
+
+      <section className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.02fr_0.98fr]">
           <div>
-            <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] ${tone.badge}`}>
-              <FileText className="h-3.5 w-3.5" />
-              Reading-first publication
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#9929ea]/25 bg-[#faeb92]/80 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.22em] text-[#2d0a3d]">
+              <Zap className="h-3.5 w-3.5 text-[#9929ea]" aria-hidden />
+              {hero.badge}
             </span>
-            <h1 className={`mt-6 max-w-4xl text-5xl font-semibold tracking-[-0.06em] sm:text-6xl ${tone.title}`}>
-              Essays, analysis, and slower reading designed like a publication, not a dashboard.
+            <h1
+              className="mt-7 text-[2.4rem] font-bold leading-[1.06] tracking-[-0.02em] sm:text-5xl lg:text-[3.15rem]"
+              style={{ fontFamily: 'var(--font-lobster), cursive' }}
+            >
+              {hero.title[0]}{' '}
+              <span className="bg-gradient-to-r from-[#9929ea] to-[#cc66da] bg-clip-text text-transparent">{hero.title[1]}</span>
             </h1>
-            <p className={`mt-6 max-w-2xl text-base leading-8 ${tone.muted}`}>{SITE_CONFIG.description}</p>
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-[#4a3b55] sm:text-lg">
+              {SITE_CONFIG.description}
+            </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href={primaryTask?.route || '/articles'} className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.action}`}>
-                Start reading
+              <Link
+                href={primaryTask?.route || '/articles'}
+                className="inline-flex items-center gap-2 rounded-full bg-[#9929ea] px-6 py-3 text-sm font-semibold text-white shadow-[0_12px_40px_rgba(100,20,200,0.3)] transition hover:-translate-y-0.5 hover:bg-[#8719d6]"
+              >
+                {hero.primaryCta.label}
                 <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link href="/about" className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.actionAlt}`}>
-                About the publication
+              <Link
+                href={hero.secondaryCta.href}
+                className="inline-flex items-center gap-2 rounded-full border-2 border-[#9929ea] bg-white/90 px-6 py-3 text-sm font-semibold text-[#4b0a6b] transition hover:bg-[#faf5ff]"
+              >
+                {hero.secondaryCta.label}
               </Link>
             </div>
+            {chips.length ? (
+              <div className="mt-8 flex flex-wrap gap-2.5">
+                {chips.map((label) => (
+                  <span
+                    key={label}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-[#e4d4f2] bg-white/90 px-3.5 py-1.5 text-xs font-medium text-[#2d0a3d] shadow-sm"
+                  >
+                    <FileText className="h-3.5 w-3.5 text-[#cc66da]" />
+                    {label}
+                  </span>
+                ))}
+              </div>
+            ) : null}
           </div>
 
-          <aside className={`rounded-[2rem] p-6 ${tone.panel}`}>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Inside this issue</p>
-            <div className="mt-5 space-y-5">
+          <div className="relative mx-auto w-full max-w-lg">
+            <div
+              className="pointer-events-none absolute -right-4 bottom-4 z-10 w-[min(100%,20rem)] rounded-2xl border border-white/80 bg-white p-4 text-left shadow-[0_24px_50px_rgba(40,10,80,0.18)]"
+            >
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#9929ea]">{hero.featureCardBadge}</p>
+              <p className="mt-2 text-sm font-bold text-[#0a0a0a]">{hero.featureCardTitle}</p>
+              <p className="mt-1 text-xs leading-relaxed text-[#4a3b55]">{hero.featureCardDescription}</p>
+            </div>
+
+            <div className="eyr-device-float relative pl-2">
+              <div
+                className="relative z-[1] mx-auto w-full max-w-[19rem] rounded-2xl border-4 border-[#1a1a1a] bg-[#111] p-1.5 shadow-2xl sm:max-w-[20rem]"
+              >
+                <div className="flex h-2 items-center justify-center gap-1 rounded-t-lg">
+                  <span className="h-1.5 w-1.5 rounded-full bg-zinc-600" />
+                </div>
+                <div className="relative aspect-[10/6] w-full overflow-hidden rounded-lg bg-gradient-to-br from-[#2d0a3d] via-[#4b1a6a] to-[#9929ea]">
+                  <div className="absolute inset-2 rounded-md border border-white/10 bg-white/10 p-2 text-[7px] leading-tight text-white/90 sm:text-[8px]">
+                    <p className="font-sans text-[#faeb92]">{SITE_CONFIG.domain}</p>
+                    <p className="mt-1 font-sans opacity-90">Articles · read · share</p>
+                    <div className="mt-1.5 space-y-0.5">
+                      {side.slice(0, 2).map((p) => (
+                        <p key={p.id} className="truncate text-[#faf5ff]">
+                          {p.title}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-0.5 flex h-1 justify-center">
+                  <span className="h-0.5 w-10 rounded-full bg-zinc-500" />
+                </div>
+              </div>
+              <div
+                className="absolute -left-2 top-10 z-0 hidden w-[11rem] -rotate-6 rounded-2xl border-4 border-[#e8e0f4] bg-white/95 p-2 shadow-xl sm:block"
+              >
+                <div className="mb-1 flex items-center justify-between text-[#9929ea]">
+                  <Tablet className="h-4 w-4" />
+                  <span className="text-[9px] font-semibold uppercase">Tablet</span>
+                </div>
+                <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg">
+                  <ContentImage
+                    src={previewImg}
+                    alt=""
+                    fill
+                    className="object-cover"
+                    intrinsicWidth={400}
+                    intrinsicHeight={500}
+                  />
+                </div>
+              </div>
+              <div
+                className="absolute -right-1 bottom-6 z-20 w-[4.2rem] rounded-[1.1rem] border-4 border-[#1a1a1a] bg-[#111] p-1.5 shadow-[0_18px_40px_rgba(0,0,0,0.3)]"
+              >
+                <div className="relative flex aspect-[9/18] items-stretch justify-center overflow-hidden rounded-md bg-gradient-to-b from-[#2a0a3a] to-[#0a0a0a] p-0.5">
+                  <div className="m-0.5 w-full rounded-sm bg-gradient-to-b from-white/20 to-white/5" />
+                </div>
+                <div className="mt-0.5 flex h-0.5 justify-center">
+                  <div className="h-0.5 w-5 rounded-full bg-zinc-600" />
+                </div>
+                <div className="mt-0.5 flex items-center justify-center text-white/30">
+                  <Smartphone className="h-3.5 w-3.5" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {side.length ? (
+        <section className="border-t border-[#e4d4f2]/60 bg-gradient-to-b from-white/60 to-[#faf6ff]">
+          <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+            <div className="mb-6 flex items-end justify-between gap-3">
+              <h2
+                className="text-2xl font-bold text-[#0a0a0a] sm:text-3xl"
+                style={{ fontFamily: 'var(--font-lobster), cursive' }}
+              >
+                Fresh on the page
+              </h2>
+              <Link
+                href="/articles"
+                className="whitespace-nowrap text-sm font-semibold text-[#9929ea] transition hover:underline"
+              >
+                All articles
+              </Link>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {side.map((post) => (
-                <Link key={post.id} href={`/articles/${post.slug}`} className="block border-b border-black/10 pb-5 last:border-b-0 last:pb-0">
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em] opacity-60">Feature</p>
-                  <h3 className="mt-2 text-xl font-semibold">{post.title}</h3>
-                  <p className={`mt-2 text-sm leading-7 ${tone.muted}`}>{post.summary || 'Long-form perspective with a calmer reading rhythm.'}</p>
+                <Link
+                  key={post.id}
+                  href={`/articles/${post.slug}`}
+                  className="group flex flex-col overflow-hidden rounded-2xl border border-[#e4d4f2] bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:border-[#cc66da]/50 hover:shadow-md"
+                >
+                  <h3
+                    className="text-base font-bold leading-snug text-[#0a0a0a] group-hover:text-[#9929ea] sm:text-lg"
+                    style={{ fontFamily: 'var(--font-lobster), cursive' }}
+                  >
+                    {post.title}
+                  </h3>
+                  <p className="mt-2 line-clamp-2 text-sm text-[#4a3b55]">
+                    {post.summary || 'Open for a long-form read built for this site.'}
+                  </p>
                 </Link>
               ))}
             </div>
-          </aside>
-        </div>
+          </div>
+        </section>
+      ) : null}
 
-        {lead ? (
-          <div className={`mt-12 overflow-hidden rounded-[2.5rem] ${tone.panel}`}>
-            <div className="grid lg:grid-cols-[1.05fr_0.95fr]">
-              <div className="relative min-h-[360px] overflow-hidden">
+      {lead ? (
+        <section className="mx-auto max-w-7xl px-4 py-4 pb-16 sm:px-6 sm:py-6 lg:px-8">
+          <div className="overflow-hidden rounded-[2.2rem] border border-[#e4d4f2] bg-white shadow-[0_32px_80px_rgba(50,20,100,0.1)]">
+            <div className="grid bg-[#1a0a1c] text-white lg:grid-cols-[1.1fr_0.9fr]">
+              <div className="relative min-h-[280px] w-full sm:min-h-[340px]">
                 <ContentImage src={getPostImage(lead)} alt={lead.title} fill className="object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-[#0a0a0a]/70 to-transparent" />
+                <p className="absolute bottom-4 left-4 font-sans text-xs font-semibold uppercase tracking-[0.25em] text-[#faeb92]">
+                  Lead story
+                </p>
               </div>
-              <div className="p-8 lg:p-10">
-                <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Lead story</p>
-                <h2 className="mt-4 text-4xl font-semibold tracking-[-0.04em]">{lead.title}</h2>
-                <p className={`mt-4 text-sm leading-8 ${tone.muted}`}>{lead.summary || 'A more deliberate lead story surface with room for a proper narrative setup.'}</p>
-                <Link href={`/articles/${lead.slug}`} className={`mt-8 inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.action}`}>
-                  Read article
+              <div className="flex flex-col justify-center p-7 sm:p-9 lg:p-10">
+                <h2
+                  className="text-2xl font-bold leading-tight sm:text-3xl"
+                  style={{ fontFamily: 'var(--font-lobster), cursive' }}
+                >
+                  {lead.title}
+                </h2>
+                <p className="mt-4 text-sm leading-relaxed text-slate-300 sm:text-base">
+                  {lead.summary || 'A deeper feature with room for a proper narrative, tuned for the Empower You Road read.'}
+                </p>
+                <Link
+                  href={`/articles/${lead.slug}`}
+                  className="mt-7 inline-flex w-fit items-center gap-2 rounded-full bg-[#faeb92] px-5 py-2.5 text-sm font-bold text-[#1a0a0c] transition hover:brightness-95"
+                >
+                  Open article
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
             </div>
           </div>
-        ) : null}
+        </section>
+      ) : null}
 
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {supportTasks.slice(0, 3).map((task) => (
-            <Link key={task.key} href={task.route} className={`rounded-[1.8rem] p-6 ${tone.soft}`}>
-              <h3 className="text-xl font-semibold">{task.label}</h3>
-              <p className={`mt-3 text-sm leading-7 ${tone.muted}`}>{task.description}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
+      {supportTasks.length ? (
+        <section className="border-t border-[#e4d4f2]/50 bg-white/70">
+          <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+            <h2
+              className="mb-6 text-center text-xl font-bold sm:text-2xl"
+              style={{ fontFamily: 'var(--font-lobster), cursive' }}
+            >
+              Explore the lanes we highlight here
+            </h2>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {supportTasks.map((task) => {
+                const Icon = taskIcons[task.key as TaskKey] || FileText
+                return (
+                  <Link
+                    key={task.key}
+                    href={task.route}
+                    className="group flex items-start gap-3 rounded-2xl border-2 border-[#e4d4f2] bg-gradient-to-br from-white to-[#faf5ff] p-5 transition hover:border-[#9929ea]/40"
+                  >
+                    <span className="mt-0.5 flex h-9 w-9 items-center justify-center rounded-xl bg-[#faeb92]/60 text-[#2d0a3d]">
+                      <Icon className="h-4 w-4" />
+                    </span>
+                    <div>
+                      <h3
+                        className="text-lg font-bold text-[#0a0a0a] group-hover:text-[#9929ea]"
+                        style={{ fontFamily: 'var(--font-lobster), cursive' }}
+                      >
+                        {task.label}
+                      </h3>
+                      <p className="mt-1 text-sm text-[#4a3b55]">{task.description}</p>
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
+            <p className="mt-6 text-center text-xs text-[#5c4a6a]">
+              Other task routes on this site stay available by URL and search—this row only calls out what the navigation
+              features first.
+            </p>
+          </div>
+        </section>
+      ) : null}
     </main>
   )
 }
@@ -535,7 +720,12 @@ export default async function HomePage() {
         />
       ) : null}
       {productKind === 'editorial' ? (
-        <EditorialHome primaryTask={primaryTask} articlePosts={articlePosts} supportTasks={supportTasks} />
+        <EditorialHome
+          primaryTask={primaryTask}
+          articlePosts={articlePosts}
+          imagePosts={imagePosts}
+          supportTasks={supportTasks}
+        />
       ) : null}
       {productKind === 'visual' ? (
         <VisualHome primaryTask={primaryTask} imagePosts={imagePosts} profilePosts={profilePosts} articlePosts={articlePosts} />

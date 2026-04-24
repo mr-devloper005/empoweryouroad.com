@@ -1,10 +1,10 @@
 export const siteIdentity = {
   code: process.env.NEXT_PUBLIC_SITE_CODE || 'o6kr7a9xvb',
-  name: process.env.NEXT_PUBLIC_SITE_NAME || 'Empoweryouroad',
-  tagline: process.env.NEXT_PUBLIC_SITE_TAGLINE || 'Article platform',
+  name: process.env.NEXT_PUBLIC_SITE_NAME || 'Empower You Road',
+  tagline: process.env.NEXT_PUBLIC_SITE_TAGLINE || 'Ideas that move you forward',
   description:
     process.env.NEXT_PUBLIC_SITE_DESCRIPTION ||
-    'An article-led publishing platform for insights, stories, guides, and long-form discovery.',
+    'empoweryouroad.com is an article-first home for bold ideas, practical guides, and human stories—written to be read slowly, shared widely, and revisited often.',
   domain: process.env.NEXT_PUBLIC_SITE_DOMAIN || 'empoweryouroad.com',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://empoweryouroad.com',
   ogImage: process.env.NEXT_PUBLIC_SITE_OG_IMAGE || '/og-default.png',

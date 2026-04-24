@@ -2,110 +2,116 @@ import type { TaskKey } from '@/lib/site-config'
 
 export const siteContent = {
   navbar: {
-    tagline: 'Independent reading platform',
+    tagline: 'Article discovery · empoweryouroad.com',
   },
   footer: {
-    tagline: 'Stories, resources, and discoverable posts',
+    tagline: 'New stories weekly · written for real readers',
   },
   hero: {
-    badge: 'Latest stories and visuals',
-    title: ['A thoughtful home for', 'stories, visuals, and discovery.'],
+    badge: 'Reading platform + vivid story hub',
+    title: ['Turn posts into momentum', 'and read like the open road.'],
     description:
-      'Explore fresh articles, image-led posts, and discoverable content across the platform through a calmer and clearer browsing experience.',
+      'empoweryouroad.com is where long-form writing meets a brighter interface—essays, explainers, and field notes for humans who like color, craft, and clarity in every paragraph.',
     primaryCta: {
-      label: 'Read latest stories',
+      label: 'Start reading',
       href: '/articles',
     },
     secondaryCta: {
-      label: 'Explore visuals',
+      label: 'Browse images',
       href: '/images',
     },
-    searchPlaceholder: 'Search stories, visuals, listings, and more',
+    searchPlaceholder: 'Search stories, ideas, and posts across the site',
     focusLabel: 'Focus',
-    featureCardBadge: 'latest cover rotation',
-    featureCardTitle: 'Latest posts shape the visual identity of the homepage.',
+    featureCardBadge: 'Editorial + visuals',
+    featureCardTitle: 'A calmer read with room for the bold headline.',
     featureCardDescription:
-      'Recent images and stories stay at the center of the experience without changing any core platform behavior.',
+      'The homepage pairs articles with a visual lane so you can start with text or pictures—without changing any core platform behavior.',
+    /** Shown as small rounded chips under the hero CTAs (visual only) */
+    chips: ['Story', 'Essay', 'Guide', 'Image', 'Field note'] as const,
   },
   home: {
     metadata: {
-      title: 'Stories, visuals, and discoverable content',
+      title: 'empoweryouroad.com — articles, color, and long-form reading',
       description:
-        'Explore articles, images, listings, and curated posts through a cleaner reading-first experience.',
-      openGraphTitle: 'Stories, visuals, and discoverable content',
+        'Read essays, stories, and visual posts in one joyful editorial system built for empoweryouroad.com visitors.',
+      openGraphTitle: 'empoweryouroad.com | Empower You Road',
       openGraphDescription:
-        'Discover articles, visual posts, and connected content through a calmer reading-first experience.',
-      keywords: ['story platform', 'article site', 'visual content', 'content discovery'],
+        'Article-first reading with purple-and-butter energy—guides, features, and visual stories in one place.',
+      keywords: [
+        'empoweryouroad',
+        'articles',
+        'long-form reading',
+        'visual stories',
+        'independent publishing',
+      ],
     },
-    introBadge: 'About the platform',
-    introTitle: 'Built for reading, browsing, and connecting different kinds of content.',
+    introBadge: 'Why this site',
+    introTitle: 'A publication-shaped homepage that does not look like a clone.',
     introParagraphs: [
-      'This site brings together article-style reading, visual browsing, and structured discovery so visitors can move naturally between different content types.',
-      'Instead of separating stories, visuals, and supporting resources into disconnected surfaces, the platform keeps them connected in one place with consistent navigation and easier exploration.',
-      'Whether someone starts with a story, an image-led post, a listing, or a resource page, they can keep discovering related content without friction.',
+      'Empower You Road is tuned for the article task first: big type, clear spacing, and an experience that feels like a magazine in the browser rather than a generic post feed.',
+      'Images sit alongside as a second lane, so you can keep exploring without leaving the same calm visual system or breaking search, posting, and SEO behavior that powers the platform.',
     ],
-    sideBadge: 'At a glance',
+    sideBadge: 'What you will notice',
     sidePoints: [
-      'Reading-first homepage with stronger emphasis on stories and imagery.',
-      'Connected sections for articles, visuals, listings, and supporting resources.',
-      'Cleaner browsing rhythm designed to make exploration feel easier.',
-      'Lightweight interactions that keep the experience fast and readable.',
+      'A hero split with soft blooms and a device story block inspired by product landing pages—without the teal cliché.',
+      'Primary and secondary tasks only in the top navigation; everything else stays on its route.',
+      'Motion stays lightweight: slow fades, gentle float, and CSS where possible.',
     ],
     primaryLink: {
-      label: 'Browse articles',
+      label: 'Read articles',
       href: '/articles',
     },
     secondaryLink: {
-      label: 'See visuals',
+      label: 'View images',
       href: '/images',
     },
   },
   cta: {
-    badge: 'Start exploring',
-    title: 'Explore articles, visuals, and resources through one connected experience.',
+    badge: 'Open the next story',
+    title: 'Jump between articles, imagery, and search without losing the thread.',
     description:
-      'Move between articles, image-led posts, listings, and resources through one clearer and more connected visual system.',
+      'Sign in to save work, or reach out if you are partnering on distribution—same routes and logic as the shared platform underneath.',
     primaryCta: {
-      label: 'Get Started Free',
+      label: 'Create account',
       href: '/register',
     },
     secondaryCta: {
-      label: 'Contact Sales',
+      label: 'Contact',
       href: '/contact',
     },
   },
   taskSectionHeading: 'Latest {label}',
-  taskSectionDescriptionSuffix: 'Browse the newest posts in this section.',
+  taskSectionDescriptionSuffix: 'New posts in this section.',
 } as const
 
 export const taskPageMetadata: Record<Exclude<TaskKey, 'comment' | 'org' | 'social'>, { title: string; description: string }> = {
   article: {
-    title: 'Articles and stories',
-    description: 'Read articles, stories, guides, and long-form posts across topics and interests.',
+    title: 'Articles — Empower You Road',
+    description: 'Long-form stories, guides, and essays on empoweryouroad.com.',
   },
   listing: {
-    title: 'Listings and discoverable pages',
-    description: 'Explore listings, services, brands, and structured pages organized for easier browsing.',
+    title: 'Listings on Empower You Road',
+    description: 'Business and service pages when the listing task is in use.',
   },
   classified: {
-    title: 'Classifieds and announcements',
-    description: 'Browse classifieds, offers, notices, and time-sensitive posts across categories.',
+    title: 'Classifieds on Empower You Road',
+    description: 'Short listings and time-sensitive posts.',
   },
   image: {
-    title: 'Images and visual posts',
-    description: 'Explore image-led posts, galleries, and visual stories from across the platform.',
+    title: 'Images & visual stories',
+    description: 'Galleries and image-led posts from across the site.',
   },
   profile: {
-    title: 'Profiles and public pages',
-    description: 'Discover public profiles, brand pages, and identity-focused posts in one place.',
+    title: 'Profiles',
+    description: 'Identity pages for people and projects.',
   },
   sbm: {
-    title: 'Curated links and saved resources',
-    description: 'Browse useful links, saved references, and curated resources organized for discovery.',
+    title: 'Bookmarks & resources',
+    description: 'Curated links and saved resources.',
   },
   pdf: {
-    title: 'PDFs and downloadable resources',
-    description: 'Open reports, documents, and downloadable resources shared across the platform.',
+    title: 'Documents & PDFs',
+    description: 'Downloadable files and reports.',
   },
 }
 
@@ -114,133 +120,109 @@ export const taskIntroCopy: Record<
   { title: string; paragraphs: string[]; links: { label: string; href: string }[] }
 > = {
   listing: {
-    title: 'Listings, services, and structured pages',
+    title: 'Listings, services, and discoverable pages',
     paragraphs: [
-      'Explore listings, services, brands, and discoverable pages across categories. Each entry is organized to make browsing clearer and help visitors quickly understand what a post offers.',
-      'Listings connect naturally with articles, images, resources, and other content types so supporting information stays easy to reach from the same platform.',
-      'Browse by category to compare posts in context, discover related content, and move between formats without losing your place.',
+      'Listings and directory-style posts stay available for teams that wire them in—this site simply does not place them in the top navigation by default.',
+      'Use categories and search to move between services while article reading remains the emotional center of the brand.',
     ],
     links: [
-      { label: 'Read articles', href: '/articles' },
-      { label: 'Explore classifieds', href: '/classifieds' },
-      { label: 'View profiles', href: '/profile' },
+      { label: 'Articles', href: '/articles' },
+      { label: 'Images', href: '/images' },
+      { label: 'Classifieds', href: '/classifieds' },
     ],
   },
   article: {
-    title: 'Articles, stories, and long-form reading',
+    title: 'Articles, essays, and the core reading lane',
     paragraphs: [
-      'This section is built for stories, explainers, guides, and long-form reading across topics and interests.',
-      'Articles connect with listings, images, resources, and other content types so deeper reading can lead naturally into related discovery.',
-      'Use this section to browse thoughtful posts, revisit useful writing, and move into supporting content when you want more context.',
+      'The article surface is the flagship for Empower You Road: large display type, a distinctive article detail layout, and typography tuned for long sessions.',
+      'We keep the same data model the platform already expects, so you still get search, cards, and comments in predictable places even when the canvas looks new.',
     ],
     links: [
-      { label: 'Explore listings', href: '/listings' },
-      { label: 'Open images', href: '/images' },
-      { label: 'Browse resources', href: '/pdf' },
+      { label: 'Images', href: '/images' },
+      { label: 'About', href: '/about' },
+      { label: 'Search', href: '/search' },
     ],
   },
   classified: {
     title: 'Classifieds, offers, and timely updates',
     paragraphs: [
-      'Classified posts help surface offers, notices, deals, and time-sensitive opportunities in a faster-scanning format.',
-      'They work well alongside articles, listings, and profiles, making it easier to connect short-term posts with more structured content.',
-      'Browse by category to find announcements quickly, then continue into related sections when you need more detail.',
+      'Time-sensitive or deal-style posts are supported when the classified task is enabled. Here they are styled with clearer urgency and compact fields.',
     ],
     links: [
-      { label: 'Business listings', href: '/listings' },
-      { label: 'Read articles', href: '/articles' },
-      { label: 'View profiles', href: '/profile' },
+      { label: 'Listings', href: '/listings' },
+      { label: 'Articles', href: '/articles' },
+      { label: 'Profiles', href: '/profile' },
     ],
   },
   image: {
-    title: 'Image-led posts and visual stories',
+    title: 'Image-first posts and visual stories',
     paragraphs: [
-      'Images take the lead in this section through galleries, visual posts, and story-led content where imagery carries the experience.',
-      'These posts connect with articles, listings, and other sections so visuals can act as entry points into deeper content.',
-      'Browse the latest visual updates, then continue into related stories or supporting pages for more context.',
+      'The image lane is tuned for a gallery mindset: more contrast, darker shells on list pages, and a hero that pairs naturally with the article home.',
     ],
     links: [
       { label: 'Read articles', href: '/articles' },
-      { label: 'Explore listings', href: '/listings' },
-      { label: 'Open classifieds', href: '/classifieds' },
+      { label: 'Open search', href: '/search' },
+      { label: 'About the site', href: '/about' },
     ],
   },
   profile: {
     title: 'Profiles, identities, and public pages',
     paragraphs: [
-      'Profiles capture the identity behind a business, creator, brand, or project and help visitors understand who is behind the content they are exploring.',
-      'These pages work as trust anchors across the site and connect naturally with stories, listings, documents, and other post types.',
-      'Browse profiles to understand people and brands more clearly, then continue into related content from the same source.',
+      'Profiles are trust anchors. When this task is on, the layout leans on neutral surfaces so people and projects read clearly against the more expressive article shell.',
     ],
     links: [
-      { label: 'Open listings', href: '/listings' },
-      { label: 'Read articles', href: '/articles' },
-      { label: 'Browse images', href: '/images' },
+      { label: 'Articles', href: '/articles' },
+      { label: 'Listings', href: '/listings' },
     ],
   },
   sbm: {
-    title: 'Curated links and bookmarked resources',
+    title: 'Bookmarks and curated resources',
     paragraphs: [
-      'This section collects useful links, references, tools, and saved resources in a text-first browsing format.',
-      'Bookmarks stay connected to the rest of the platform, making it easier to move from a saved link into related stories, listings, or resources.',
-      'Use this section to organize helpful sources and discover connected content without leaving the broader site experience.',
+      'Curation is treated as a research shelf: calmer type, more compact metadata, and links that read like references rather than ads.',
     ],
     links: [
-      { label: 'Browse articles', href: '/articles' },
-      { label: 'Explore listings', href: '/listings' },
-      { label: 'Open PDFs', href: '/pdf' },
+      { label: 'Articles', href: '/articles' },
+      { label: 'Search', href: '/search' },
     ],
   },
   pdf: {
-    title: 'PDFs, documents, and downloadable files',
+    title: 'Documents and long downloads',
     paragraphs: [
-      'The PDF library hosts reports, guides, downloadable files, and longer-form document resources that support reading and discovery.',
-      'These resources work alongside stories, listings, and profiles, helping document-style content stay connected to the rest of the platform.',
-      'Browse by category to find relevant files quickly, then continue into related sections when you want more context.',
+      'Files sit in a more utilitarian layout so visitors can find titles, open previews, and download without the editorial frills meant for long reads.',
     ],
     links: [
-      { label: 'Read articles', href: '/articles' },
-      { label: 'See listings', href: '/listings' },
-      { label: 'Explore profiles', href: '/profile' },
+      { label: 'Articles', href: '/articles' },
+      { label: 'Listings', href: '/listings' },
     ],
   },
   social: {
-    title: 'Short updates and community signals',
+    title: 'Short updates and signals',
     paragraphs: [
-      'Short updates add quick signals that keep activity flowing across the platform.',
-      'They work well with stories, listings, and resources by helping visitors move from brief updates into deeper content.',
-      'Use these posts as lightweight entry points into the broader site experience.',
+      'When social-style posts are enabled, they work as light signals that can send readers to deeper articles and resources without replacing them.',
     ],
     links: [
-      { label: 'Open listings', href: '/listings' },
-      { label: 'Read articles', href: '/articles' },
-      { label: 'View PDFs', href: '/pdf' },
+      { label: 'Articles', href: '/articles' },
+      { label: 'Classifieds', href: '/classifieds' },
     ],
   },
   comment: {
-    title: 'Comments and contextual responses',
+    title: 'Comments and responses',
     paragraphs: [
-      'Comments surface responses connected directly to articles and help keep discussion close to the writing it belongs to.',
-      'This layer adds perspective and reaction without needing a separate standalone content format.',
-      'Use comments as supporting context beneath stories, then continue exploring related content from the same topic area.',
+      'Comment threads follow the post they belong to and surface directly under articles when enabled—same connector behavior, clearer hierarchy on the page.',
     ],
     links: [
-      { label: 'Explore articles', href: '/articles' },
-      { label: 'View listings', href: '/listings' },
-      { label: 'See classifieds', href: '/classifieds' },
+      { label: 'Browse articles', href: '/articles' },
+      { label: 'Search', href: '/search' },
     ],
   },
   org: {
-    title: 'Organizations, teams, and structured entities',
+    title: 'Organizations and teams',
     paragraphs: [
-      'Organization pages provide structured identity surfaces for teams, brands, communities, and agencies.',
-      'Used with listings, stories, profiles, and resources, they help create stronger structure across the platform.',
-      'Connect organization pages with related content to build a clearer and more unified site presence.',
+      'Organization pages provide a structured way to show teams, studios, and collaboratives alongside their stories and services.',
     ],
     links: [
-      { label: 'Business listings', href: '/listings' },
-      { label: 'Read articles', href: '/articles' },
-      { label: 'PDF library', href: '/pdf' },
+      { label: 'Articles', href: '/articles' },
+      { label: 'Listings', href: '/listings' },
     ],
   },
 }
