@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { TaskDetailPage } from "@/components/tasks/task-detail-page";
 import { buildPostMetadata, buildTaskMetadata } from "@/lib/seo";
 import { fetchTaskPostBySlug, fetchTaskPosts } from "@/lib/task-data";
@@ -14,11 +15,29 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
-  const post = await fetchTaskPostBySlug("image", resolvedParams.slug);
+  // Try to find as image first, then as article
+  let post = await fetchTaskPostBySlug("image", resolvedParams.slug);
+  if (!post) {
+    post = await fetchTaskPostBySlug("article", resolvedParams.slug);
+  }
   return post ? await buildPostMetadata("image", post) : await buildTaskMetadata("image");
 }
 
 export default async function ImageDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
-  return <TaskDetailPage task="image" slug={resolvedParams.slug} />;
+  const { slug } = resolvedParams;
+  
+  // Try to find post as image first
+  let post = await fetchTaskPostBySlug("image", slug);
+  
+  // If not found as image, try as article
+  if (!post) {
+    post = await fetchTaskPostBySlug("article", slug);
+    if (post) {
+      // Redirect to article page if it's an article post
+      redirect(`/articles/${slug}`);
+    }
+  }
+  
+  return <TaskDetailPage task="image" slug={slug} />;
 }

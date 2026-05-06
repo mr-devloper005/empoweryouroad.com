@@ -41,7 +41,13 @@ export const fetchTaskPosts = async (
             ? String((post as any).status).toUpperCase()
             : "";
         if (status && status !== "PUBLISHED") return false;
-        if (getPostType(post) !== type) return false;
+        // For image task, also allow article posts to be displayed
+        const postType = getPostType(post);
+        if (task === 'image') {
+          if (postType !== type && postType !== 'article') return false;
+        } else if (postType !== type) {
+          return false;
+        }
         const content = post.content && typeof post.content === "object" ? post.content : {};
         const category = typeof (content as any).category === "string" ? (content as any).category : "";
         return !category || isValidCategory(category);

@@ -69,7 +69,7 @@ export function ArticleReadingLayout({
                     <Sparkles className="h-3 w-3" />
                     {siteContent.hero.badge}
                   </span>
-                  {articleDate ? <span className="text-[#5c4a6a]">{articleDate}</span> : null}
+                  null
                 </div>
                 <h1
                   className="font-[family-name:var(--font-lobster)] text-[2.4rem] font-bold leading-[1.08] tracking-[-0.02em] text-[#0a0a0a] sm:text-5xl lg:text-[3.1rem]"
@@ -169,12 +169,7 @@ export function ArticleReadingLayout({
                     <span>Author</span>
                     <span className="text-right font-medium text-[#0a0a0a]">{articleAuthor}</span>
                   </li>
-                  {articleDate ? (
-                    <li className="flex items-start justify-between gap-2">
-                      <span>Date</span>
-                      <span className="text-right font-medium">{articleDate}</span>
-                    </li>
-                  ) : null}
+                  null
                   <li className="flex items-start justify-between gap-2">
                     <span>Topic</span>
                     <span className="text-right font-medium">{category}</span>

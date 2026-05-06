@@ -64,10 +64,13 @@ export function TaskListClient({ task, initialPosts, category }: Props) {
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {merged.map((post) => {
         const localOnly = (post as any).localOnly;
+        // Determine actual post type from content
+        const content = post.content && typeof post.content === 'object' ? post.content : {};
+        const actualType = typeof (content as any).type === 'string' ? (content as any).type : task;
         const href = localOnly
-          ? `/local/${task}/${post.slug}`
-          : buildPostUrl(task, post.slug);
-        return <TaskPostCard key={post.id} post={post} href={href} taskKey={task} />;
+          ? `/local/${actualType}/${post.slug}`
+          : buildPostUrl(actualType as TaskKey, post.slug);
+        return <TaskPostCard key={post.id} post={post} href={href} taskKey={actualType as TaskKey} />;
       })}
     </div>
   );

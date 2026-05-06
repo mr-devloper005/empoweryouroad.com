@@ -6,11 +6,11 @@ export const revalidate = 3;
 
 export const generateMetadata = () =>
   buildTaskMetadata("profile", {
-    path: "/profile",
     title: taskPageMetadata.profile.title,
     description: taskPageMetadata.profile.description,
   });
 
-export default function ProfilePage({ searchParams }: { searchParams?: { category?: string } }) {
-  return <TaskListPage task="profile" category={searchParams?.category} />;
+export default async function ProfilePage({ searchParams }: { searchParams?: Promise<{ category?: string }> }) {
+  const resolvedParams = await searchParams;
+  return <TaskListPage task="profile" category={resolvedParams?.category} />;
 }

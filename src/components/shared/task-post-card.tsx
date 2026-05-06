@@ -63,21 +63,21 @@ const cardStyles = {
   },
   'editorial-feature': {
     frame: 'rounded-[1.8rem] border border-[rgba(125,83,45,0.12)] bg-[#fffaf3] shadow-[0_18px_55px_rgba(89,52,24,0.1)] hover:-translate-y-1 hover:shadow-[0_26px_75px_rgba(89,52,24,0.14)]',
-    muted: 'text-[#71584b]',
-    title: 'text-[#2b1d17]',
-    badge: 'bg-[#2b1d17] text-[#fff3df]',
+    muted: 'text-black font-bold',
+    title: 'text-black font-bold',
+    badge: 'bg-black text-white',
   },
   'studio-panel': {
-    frame: 'rounded-[1.9rem] border border-white/10 bg-[linear-gradient(180deg,rgba(7,17,31,0.96),rgba(12,23,43,0.96))] text-white shadow-[0_24px_80px_rgba(15,23,42,0.35)] hover:-translate-y-1 hover:shadow-[0_30px_90px_rgba(15,23,42,0.42)]',
-    muted: 'text-slate-300',
-    title: 'text-white',
-    badge: 'bg-[#8df0c8] text-[#07111f]',
+    frame: 'rounded-[1.9rem] border border-black bg-white text-black font-bold shadow-[0_24px_80px_rgba(0,0,0,0.35)] hover:-translate-y-1 hover:shadow-[0_30px_90px_rgba(0,0,0,0.42)]',
+    muted: 'text-black font-bold',
+    title: 'text-black font-bold',
+    badge: 'bg-black text-white',
   },
   'catalog-grid': {
-    frame: 'rounded-[1.8rem] border border-[rgba(67,78,41,0.14)] bg-[#f8faf1] shadow-[0_18px_58px_rgba(55,65,31,0.1)] hover:-translate-y-1 hover:shadow-[0_28px_70px_rgba(55,65,31,0.14)]',
-    muted: 'text-[#5b664c]',
-    title: 'text-[#1f2617]',
-    badge: 'bg-[#1f2617] text-[#edf5dc]',
+    frame: 'rounded-[1.8rem] border border-black bg-white shadow-[0_18px_58px_rgba(0,0,0,0.1)] hover:-translate-y-1 hover:shadow-[0_28px_70px_rgba(0,0,0,0.14)]',
+    muted: 'text-black font-bold',
+    title: 'text-black font-bold',
+    badge: 'bg-black text-white',
   },
 } as const
 
