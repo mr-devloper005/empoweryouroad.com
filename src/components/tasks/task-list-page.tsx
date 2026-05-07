@@ -30,8 +30,8 @@ const variantShells = {
   'article-editorial':
     'bg-[radial-gradient(ellipse_80%_50%_at_0%_0%,rgba(250,235,146,0.3),transparent_50%),linear-gradient(180deg,#faf6ff_0%,#ffffff_100%)]',
   'article-journal': 'bg-[linear-gradient(180deg,#fffcff_0%,#f6edff_100%)]',
-  'image-masonry': 'bg-[linear-gradient(180deg,#09101d_0%,#111c2f_100%)] text-white',
-  'image-portfolio': 'bg-[linear-gradient(180deg,#07111f_0%,#13203a_100%)] text-white',
+  'image-masonry': 'bg-[radial-gradient(ellipse_80%_50%_at_0%_0%,rgba(153,41,234,0.3),transparent_50%),linear-gradient(180deg,#faf6ff_0%,#ffffff_100%)]',
+  'image-portfolio': 'bg-[radial-gradient(ellipse_80%_50%_at_0%_0%,rgba(153,41,234,0.3),transparent_50%),linear-gradient(180deg,#faf6ff_0%,#ffffff_100%)]',
   'profile-creator': 'bg-[linear-gradient(180deg,#0a1120_0%,#101c34_100%)] text-white',
   'profile-business': 'bg-[linear-gradient(180deg,#f6fbff_0%,#ffffff_100%)]',
   'classified-bulletin': 'bg-[linear-gradient(180deg,#edf3e4_0%,#ffffff_100%)]',
@@ -70,13 +70,13 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
         input: 'border-white/10 bg-white/6 text-white',
         button: 'bg-white text-slate-950 hover:bg-slate-200',
       }
-    : layoutKey.startsWith('article') || layoutKey.startsWith('sbm')
+    : layoutKey.startsWith('article') || layoutKey.startsWith('sbm') || layoutKey.startsWith('image')
       ? {
-          muted: 'text-[#4a3b55]',
-          panel: 'border border-[#e4d4f2] bg-white/95 shadow-[0_20px_50px_rgba(50,20,100,0.08)]',
-          soft: 'border border-[#e4d4f2] bg-[#faf5ff]',
-          input: 'border border-[#e4d4f2] bg-white text-[#0a0a0a]',
-          button: 'bg-[#9929ea] text-white hover:bg-[#8719d6]',
+          muted: 'text-black font-bold',
+          panel: 'border border-black bg-white shadow-[0_20px_50px_rgba(0,0,0,0.08)]',
+          soft: 'border border-black bg-white',
+          input: 'border border-black bg-white text-black font-bold',
+          button: 'bg-black text-white hover:bg-gray-800',
         }
       : {
           muted: 'text-slate-600',
@@ -197,8 +197,8 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
               <div className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] ${ui.soft}`}>
                 <Icon className="h-3.5 w-3.5" /> Visual feed
               </div>
-              <h1 className="mt-5 text-5xl font-semibold tracking-[-0.05em]">{taskConfig?.description || 'Latest posts'}</h1>
-              <p className={`mt-5 max-w-2xl text-sm leading-8 ${ui.muted}`}>This surface leans into stronger imagery, larger modules, and more expressive spacing so visual content feels materially different from reading and directory pages.</p>
+              <h1 className="mt-5 text-5xl font-bold tracking-[-0.05em] text-black">{taskConfig?.description || 'Latest posts'}</h1>
+              <p className="mt-5 max-w-2xl text-sm leading-8 font-bold text-black">This surface leans into stronger imagery, larger modules, and more expressive spacing so visual content feels materially different from reading and directory pages.</p>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className={`min-h-[220px] rounded-[2rem] ${ui.panel}`} />
@@ -263,7 +263,7 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
           <section className={`mb-12 rounded-[2rem] p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] sm:p-8 ${ui.panel}`}>
             <h2 className="text-2xl font-semibold text-foreground">{intro.title}</h2>
             {intro.paragraphs.map((paragraph) => (
-              <p key={paragraph.slice(0, 40)} className={`mt-4 text-sm leading-7 ${ui.muted}`}>{paragraph}</p>
+              <p key={paragraph.slice(0, 40)} className={`mt-4 text-sm leading-7 ${layoutKey === 'image-masonry' || layoutKey === 'image-portfolio' ? 'font-bold text-black' : ui.muted}`}>{paragraph}</p>
             ))}
             <div className="mt-4 flex flex-wrap gap-4 text-sm">
               {intro.links.map((link) => (

@@ -70,7 +70,6 @@ export default function PressPage() {
               <CardContent className="p-6">
                 <div className="text-xs uppercase tracking-wide text-muted-foreground">{item.outlet}</div>
                 <p className="mt-2 text-sm text-foreground">{item.headline}</p>
-                <p className="mt-2 text-xs text-muted-foreground">{item.date}</p>
               </CardContent>
             </Card>
           ))}

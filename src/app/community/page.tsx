@@ -4,6 +4,7 @@ import { buildTaskMetadata } from "@/lib/seo";
 export const revalidate = 3;
 export const generateMetadata = () => buildTaskMetadata("social");
 
-export default function CommunityPage({ searchParams }: { searchParams?: { category?: string } }) {
-  return <TaskListPage task="social" category={searchParams?.category} />;
+export default async function CommunityPage({ searchParams }: { searchParams?: Promise<{ category?: string }> }) {
+  const resolvedParams = await searchParams;
+  return <TaskListPage task="social" category={resolvedParams?.category} />;
 }

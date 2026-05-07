@@ -6,11 +6,11 @@ export const revalidate = 3;
 
 export const generateMetadata = () =>
   buildTaskMetadata("pdf", {
-    path: "/pdf",
     title: taskPageMetadata.pdf.title,
     description: taskPageMetadata.pdf.description,
   });
 
-export default function PdfLibraryPage({ searchParams }: { searchParams?: { category?: string } }) {
-  return <TaskListPage task="pdf" category={searchParams?.category} />;
+export default async function PdfLibraryPage({ searchParams }: { searchParams?: Promise<{ category?: string }> }) {
+  const resolvedParams = await searchParams;
+  return <TaskListPage task="pdf" category={resolvedParams?.category} />;
 }
