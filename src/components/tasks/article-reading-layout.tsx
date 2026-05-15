@@ -3,7 +3,6 @@ import { Sparkles, BookOpen, Clock } from 'lucide-react'
 import { ContentImage } from '@/components/shared/content-image'
 import { Badge } from '@/components/ui/badge'
 import { RichContent } from '@/components/shared/rich-content'
-import { ArticleComments } from '@/components/tasks/article-comments'
 import { ArticleReadingProgress } from '@/components/tasks/article-reading-progress'
 import { siteContent } from '@/config/site.content'
 import { SITE_CONFIG } from '@/lib/site-config'
@@ -18,7 +17,6 @@ type ArticleReadingLayoutProps = {
   postTags: string[]
   leadImage: string | null
   articleHtml: string
-  postSlug: string
   backHref: string
   backLabel: string
 }
@@ -38,11 +36,11 @@ export function ArticleReadingLayout({
   postTags,
   leadImage,
   articleHtml,
-  postSlug,
   backHref,
   backLabel,
 }: ArticleReadingLayoutProps) {
   const readTime = estReadMinutes(articleHtml)
+  const heroBadge = siteContent.hero.badge?.trim()
 
   return (
     <>
@@ -64,13 +62,14 @@ export function ArticleReadingLayout({
 
             <div className="grid items-start gap-10 lg:grid-cols-[1.15fr_0.85fr]">
               <div>
-                <div className="mb-4 flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#5c1a7a]">
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#9929ea]/25 bg-white/80 px-3 py-1 text-[10px] text-[#2d0a3d]">
-                    <Sparkles className="h-3 w-3" />
-                    {siteContent.hero.badge}
-                  </span>
-                  null
-                </div>
+                {heroBadge ? (
+                  <div className="mb-4 flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#5c1a7a]">
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-[#9929ea]/25 bg-white/80 px-3 py-1 text-[10px] text-[#2d0a3d]">
+                      <Sparkles className="h-3 w-3" />
+                      {heroBadge}
+                    </span>
+                  </div>
+                ) : null}
                 <h1
                   className="font-[family-name:var(--font-lobster)] text-[2.4rem] font-bold leading-[1.08] tracking-[-0.02em] text-[#0a0a0a] sm:text-5xl lg:text-[3.1rem]"
                   style={{ fontFamily: 'var(--font-lobster), cursive' }}
@@ -157,7 +156,7 @@ export function ArticleReadingLayout({
                 className="eyr-article-prose text-[#1f1429] [&_blockquote]:border-l-[#cc66da] [&_blockquote]:bg-[#faf5ff] [&_blockquote]:py-1"
               />
               <div className="mt-10 rounded-2xl border border-[#e4d4f2] bg-[#faf5ff] px-4 py-3 text-center text-sm text-[#4a3b55]">
-                Published on {SITE_CONFIG.name}. Comments stay attached to this article only.
+                Published on {SITE_CONFIG.name}.
               </div>
             </article>
 
@@ -169,7 +168,6 @@ export function ArticleReadingLayout({
                     <span>Author</span>
                     <span className="text-right font-medium text-[#0a0a0a]">{articleAuthor}</span>
                   </li>
-                  null
                   <li className="flex items-start justify-between gap-2">
                     <span>Topic</span>
                     <span className="text-right font-medium">{category}</span>
@@ -184,7 +182,6 @@ export function ArticleReadingLayout({
           </div>
         </div>
       </div>
-      <ArticleComments slug={postSlug} />
     </>
   )
 }

@@ -11,30 +11,24 @@ import type { Metadata } from 'next'
 
 const pillars = [
   {
-    title: 'Ideas in motion',
-    body: 'empoweryouroad.com started as a simple bet: the open road is a better metaphor for learning than a generic feed. We publish and surface long-form work that respects your attention.',
+    title: 'Why we exist',
+    body: 'empoweryouroad.com is built for readers who want depth, clarity, and ideas they can return to. We publish with intention, not speed for its own sake.',
   },
   {
-    title: 'Color with purpose',
-    body: 'We use bold purple, orchid, and butter yellow to create energy without turning the page into a brochure. The palette supports scanning, then gets out of the way when you read.',
+    title: 'How we publish',
+    body: 'Our focus is long-form writing, thoughtful visuals, and useful perspective. Every piece is shaped to be readable, shareable, and worth your time.',
   },
   {
-    title: 'Same engine, new coat of paint',
-    body: 'This site runs on the same task and posting system as other properties in the family. What you see here is a presentation layer: identity, layout, and voice belong to Empower You Road alone.',
+    title: 'What to expect',
+    body: 'You will find stories, essays, and image-led posts that favor substance over noise. The goal is simple: help you learn, reflect, and move forward.',
   },
-] as const
-
-const facts = [
-  { label: 'Flagship task', value: 'Articles' },
-  { label: 'Secondary lane', value: 'Images' },
-  { label: 'Domain', value: 'empoweryouroad.com' },
 ] as const
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildPageMetadata({
     path: '/about',
     title: `About ${SITE_CONFIG.name}`,
-    description: `What ${SITE_CONFIG.name} is, why the site exists, and how we think about long-form reading.`,
+    description: `What ${SITE_CONFIG.name} is, why the site exists, and what readers can expect.`,
   })
 }
 
@@ -56,9 +50,9 @@ export default function AboutPage() {
               The road is for everyone who reads to grow.
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#4a3b55] sm:text-lg">
-              {SITE_CONFIG.name} is the article-led home of {SITE_CONFIG.domain}. We focus on clear writing, strong
-              visuals, and a browsing rhythm that does not look like a recycled template from some other site on the
-              same stack.
+              {SITE_CONFIG.name} is a reading-first publication for people who prefer meaningful ideas over empty
+              scrolling. We care about clear writing, honest perspective, and a browsing experience that feels calm,
+              vivid, and human.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild className="rounded-full bg-[#9929ea] px-6 text-white hover:bg-[#8719d6]">
@@ -75,7 +69,7 @@ export default function AboutPage() {
             <div className="mt-10 flex flex-wrap gap-4 text-sm text-[#4a3b55]">
               <span className="inline-flex items-center gap-2 rounded-full border border-[#e4d4f2] bg-white/80 px-3 py-1.5">
                 <MapPin className="h-4 w-4 text-[#9929ea]" />
-                Online · independent editorial
+                Online - independent editorial
               </span>
               <span className="inline-flex items-center gap-2 rounded-full border border-[#e4d4f2] bg-white/80 px-3 py-1.5">
                 <PenLine className="h-4 w-4 text-[#cc66da]" />
@@ -90,23 +84,7 @@ export default function AboutPage() {
         </section>
 
         <section className="mx-auto max-w-5xl px-4 py-14 sm:px-6 lg:px-8">
-          <div className="grid gap-4 sm:grid-cols-3">
-            {facts.map((item) => (
-              <Card key={item.label} className="border-[#e4d4f2] bg-gradient-to-b from-white to-[#faf5ff]">
-                <CardContent className="p-4">
-                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#7a5f8a]">{item.label}</p>
-                  <p
-                    className="mt-2 text-lg font-bold text-[#0a0a0a]"
-                    style={{ fontFamily: 'var(--font-lobster), cursive' }}
-                  >
-                    {item.value}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          <div className="mt-10 grid gap-5 lg:grid-cols-3">
+          <div className="grid gap-5 lg:grid-cols-3">
             {pillars.map((p) => (
               <Card key={p.title} className="border-[#e4d4f2] bg-card/90">
                 <CardContent className="space-y-3 p-5">
@@ -118,19 +96,6 @@ export default function AboutPage() {
               </Card>
             ))}
           </div>
-
-          <Card className="mt-10 border-[#e4d4f2] border-dashed bg-[#faf5ff]/60">
-            <CardContent className="space-y-2 p-6 sm:p-8">
-              <h2 className="text-xl font-bold text-[#0a0a0a]" style={{ fontFamily: 'var(--font-lobster), cursive' }}>
-                No borrowed voice
-              </h2>
-              <p className="text-sm leading-relaxed text-[#4a3b55]">
-                We cleared placeholder stats and fake team rosters. If you need to reach the people behind the site, use
-                the contact form—this page is the real story, not a clone of a directory product dressed up in serif
-                type.
-              </p>
-            </CardContent>
-          </Card>
         </section>
       </main>
       <Footer />

@@ -97,7 +97,10 @@ export function Navbar() {
   const { isAuthenticated } = useAuth()
   const { recipe } = getFactoryState()
 
-  const navigation = useMemo(() => SITE_CONFIG.tasks.filter((task) => task.enabled && task.key !== 'profile'), [])
+  const navigation = useMemo(
+    () => SITE_CONFIG.tasks.filter((task) => task.enabled && task.key !== 'profile' && task.key !== 'article' && task.key !== 'image'),
+    []
+  )
   const primaryNavigation = navigation.slice(0, 5)
   const mobileNavigation = navigation.map((task) => ({
     name: task.label,
@@ -148,6 +151,9 @@ export function Navbar() {
           </div>
 
           <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+            <Button variant="ghost" size="sm" asChild className="hidden rounded-full px-4 md:flex">
+              <Link href="/articles">Explore Articles</Link>
+            </Button>
             {primaryTask ? (
               <Link href={primaryTask.route} className="hidden items-center gap-2 rounded-full border border-current/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] opacity-75 md:inline-flex">
                 <Sparkles className="h-3.5 w-3.5" />
@@ -277,7 +283,10 @@ export function Navbar() {
           )}
         </div>
 
-        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+          <Button variant="ghost" size="sm" asChild className="hidden rounded-full px-4 md:flex">
+            <Link href="/articles">Explore Articles</Link>
+          </Button>
           {primaryTask && (recipe.navbar === 'utility-bar' || recipe.navbar === 'floating-bar') ? (
             <Link href={primaryTask.route} className="hidden items-center gap-2 rounded-full border border-current/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] opacity-80 md:inline-flex">
               <Sparkles className="h-3.5 w-3.5" />
@@ -324,6 +333,10 @@ export function Navbar() {
       {isMobileMenuOpen && (
         <div className={style.mobile}>
           <div className="space-y-2 px-4 py-4">
+            <Link href="/articles" onClick={() => setIsMobileMenuOpen(false)} className="mb-3 flex items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3 text-sm font-semibold text-muted-foreground">
+              <FileText className="h-4 w-4" />
+              Explore Articles
+            </Link>
             <Link href="/search" onClick={() => setIsMobileMenuOpen(false)} className="mb-3 flex items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3 text-sm font-semibold text-muted-foreground">
               <Search className="h-4 w-4" />
               Search the site

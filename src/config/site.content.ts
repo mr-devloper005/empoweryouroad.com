@@ -8,7 +8,7 @@ export const siteContent = {
     tagline: 'New stories weekly · written for real readers',
   },
   hero: {
-    badge: 'Reading platform + vivid story hub',
+    badge: '',
     title: ['Turn posts into momentum', 'and read like the open road.'],
     description:
       'empoweryouroad.com is where long-form writing meets a brighter interface—essays, explainers, and field notes for humans who like color, craft, and clarity in every paragraph.',
@@ -17,7 +17,7 @@ export const siteContent = {
       href: '/articles',
     },
     secondaryCta: {
-      label: 'Browse images',
+      label: '',
       href: '/images',
     },
     searchPlaceholder: 'Search stories, ideas, and posts across the site',
@@ -27,7 +27,7 @@ export const siteContent = {
     featureCardDescription:
       'The homepage pairs articles with a visual lane so you can start with text or pictures—without changing any core platform behavior.',
     /** Shown as small rounded chips under the hero CTAs (visual only) */
-    chips: ['Story', 'Essay', 'Guide', 'Image', 'Field note'] as const,
+    chips: [] as const,
   },
   home: {
     metadata: {
