@@ -260,7 +260,6 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
           postTags={postTags}
           leadImage={images[0] || null}
           articleHtml={articleHtml}
-          postSlug={post.slug}
           backHref={taskConfig?.route || "/articles"}
           backLabel={taskConfig?.label || "Articles"}
         />
