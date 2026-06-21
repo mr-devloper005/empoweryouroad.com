@@ -18,24 +18,31 @@ const taskIcons: Record<TaskKey, any> = {
   comment: FileText,
 }
 
+const hiddenFooterLinks = new Set(['image', 'images', 'about', 'search'])
+
 const footerLinks = {
-  platform: SITE_CONFIG.tasks.filter((task) => task.enabled).map((task) => ({
-    name: task.label,
-    href: task.route,
-    icon: taskIcons[task.key] || LayoutGrid,
-  })),
+  platform: SITE_CONFIG.tasks
+    .filter((task) => task.enabled && task.key !== 'article' && task.key !== 'image')
+    .map((task) => ({
+      name: task.label,
+      href: task.route,
+      icon: taskIcons[task.key] || LayoutGrid,
+    }))
+    .filter((item) => !hiddenFooterLinks.has(item.name.trim().toLowerCase())),
   company: [
-    { name: 'About', href: '/about' },
-    { name: 'Careers', href: '/careers' },
-    { name: 'Blog', href: '/blog' },
-    { name: 'Press', href: '/press' },
-  ],
+    { name: 'About Us', href: '/about' },
+    { name: 'Contact Us', href: '/contact' },
+    { name: 'Help Center', href: '/help' },
+    { name: 'Privacy', href: '/privacy' },
+    // { name: 'Conditions', href: '/conditions' },
+    { name: 'Terms', href: '/terms' },
+  ].filter((item) => !hiddenFooterLinks.has(item.name.trim().toLowerCase())),
   resources: [
     { name: 'Help Center', href: '/help' },
     { name: 'Community', href: '/community' },
     { name: 'Developers', href: '/developers' },
     { name: 'Status', href: '/status' },
-  ],
+  ].filter((item) => !hiddenFooterLinks.has(item.name.trim().toLowerCase())),
   legal: [
     { name: 'Privacy', href: '/privacy' },
     { name: 'Terms', href: '/terms' },
@@ -155,7 +162,6 @@ export function Footer() {
               <p className="mt-6 max-w-md text-sm leading-7 text-[#4a3b55]">{SITE_CONFIG.description}</p>
             </div>
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-[0.24em] text-[#7a5f8a]">On the site</h4>
               <ul className="mt-4 space-y-3 text-sm text-[#2d0a3d]">
                 {footerLinks.platform.map((item: { name: string; href: string }) => (
                   <li key={item.name}>
@@ -166,18 +172,19 @@ export function Footer() {
                 ))}
               </ul>
             </div>
-            <div>
-              <h4 className="text-xs font-bold uppercase tracking-[0.24em] text-[#7a5f8a]">Company</h4>
-              <ul className="mt-4 space-y-3 text-sm text-[#2d0a3d]">
-                {footerLinks.company.map((item) => (
-                  <li key={item.name}>
-                    <Link href={item.href} className="hover:text-[#9929ea]">
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {footerLinks.company.length ? (
+              <div>
+                <ul className="mt-4 space-y-3 text-sm text-[#2d0a3d]">
+                  {footerLinks.company.map((item) => (
+                    <li key={item.name}>
+                      <Link href={item.href} className="hover:text-[#9929ea]">
+                        {item.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
           </div>
           <div className="mt-10 border-t border-[#e4d4f2]/80 pt-6 text-center text-xs text-[#5c4a6a]">
             &copy; {new Date().getFullYear()} {SITE_CONFIG.name}. {SITE_CONFIG.domain}
@@ -203,16 +210,18 @@ export function Footer() {
             </Link>
             <p className="mt-5 max-w-sm text-sm leading-7 text-slate-600">{SITE_CONFIG.description}</p>
           </div>
-          {(['platform', 'company', 'resources', 'legal'] as const).map((section) => (
-            <div key={section}>
-              <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-500">{section}</h3>
-              <ul className="mt-5 space-y-3 text-sm text-slate-600">
-                {footerLinks[section].map((item: any) => (
-                  <li key={item.name}><Link href={item.href} className="flex items-center gap-2 hover:text-slate-950">{item.icon ? <item.icon className="h-4 w-4" /> : null}{item.name}</Link></li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {(['platform', 'company', 'resources', 'legal'] as const)
+            .filter((section) => footerLinks[section].length)
+            .map((section) => (
+              <div key={section}>
+                <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-500">{section}</h3>
+                <ul className="mt-5 space-y-3 text-sm text-slate-600">
+                  {footerLinks[section].map((item: any) => (
+                    <li key={item.name}><Link href={item.href} className="flex items-center gap-2 hover:text-slate-950">{item.icon ? <item.icon className="h-4 w-4" /> : null}{item.name}</Link></li>
+                  ))}
+                </ul>
+              </div>
+            ))}
         </div>
         <div className="mt-12 border-t border-slate-200 pt-6 text-center text-sm text-slate-500">&copy; {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.</div>
       </div>
