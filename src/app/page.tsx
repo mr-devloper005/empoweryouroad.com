@@ -14,7 +14,6 @@ import {
   Tag,
   Tablet,
   User,
-  Zap,
 } from 'lucide-react'
 import { ContentImage } from '@/components/shared/content-image'
 import { NavbarShell } from '@/components/shared/navbar-shell'
@@ -274,18 +273,15 @@ function EditorialHome({
   primaryTask,
   articlePosts,
   imagePosts,
-  supportTasks,
 }: {
   primaryTask?: EnabledTask
   articlePosts: SitePost[]
   imagePosts: SitePost[]
-  supportTasks: EnabledTask[]
 }) {
   const lead = articlePosts[0]
   const side = articlePosts.slice(1, 5)
   const hero = siteContent.hero
   const previewImg = lead ? getPostImage(lead) : imagePosts[0] ? getPostImage(imagePosts[0]) : '/placeholder.svg?height=900&width=1400'
-  const chips = hero.chips
 
   return (
     <main className="relative overflow-hidden bg-[#faf6ff] text-[#0a0a0a]">
@@ -296,10 +292,6 @@ function EditorialHome({
       <section className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
         <div className="grid items-center gap-12 lg:grid-cols-[1.02fr_0.98fr]">
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#9929ea]/25 bg-[#faeb92]/80 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.22em] text-[#2d0a3d]">
-              <Zap className="h-3.5 w-3.5 text-[#9929ea]" aria-hidden />
-              {hero.badge}
-            </span>
             <h1
               className="mt-7 text-[2.4rem] font-bold leading-[1.06] tracking-[-0.02em] sm:text-5xl lg:text-[3.15rem]"
               style={{ fontFamily: 'var(--font-lobster), cursive' }}
@@ -318,26 +310,7 @@ function EditorialHome({
                 {hero.primaryCta.label}
                 <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link
-                href={hero.secondaryCta.href}
-                className="inline-flex items-center gap-2 rounded-full border-2 border-[#9929ea] bg-white/90 px-6 py-3 text-sm font-semibold text-[#4b0a6b] transition hover:bg-[#faf5ff]"
-              >
-                {hero.secondaryCta.label}
-              </Link>
             </div>
-            {chips.length ? (
-              <div className="mt-8 flex flex-wrap gap-2.5">
-                {chips.map((label) => (
-                  <span
-                    key={label}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-[#e4d4f2] bg-white/90 px-3.5 py-1.5 text-xs font-medium text-[#2d0a3d] shadow-sm"
-                  >
-                    <FileText className="h-3.5 w-3.5 text-[#cc66da]" />
-                    {label}
-                  </span>
-                ))}
-              </div>
-            ) : null}
           </div>
 
           <div className="relative mx-auto w-full max-w-lg">
@@ -483,47 +456,6 @@ function EditorialHome({
         </section>
       ) : null}
 
-      {supportTasks.length ? (
-        <section className="border-t border-[#e4d4f2]/50 bg-white/70">
-          <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-            <h2
-              className="mb-6 text-center text-xl font-bold sm:text-2xl"
-              style={{ fontFamily: 'var(--font-lobster), cursive' }}
-            >
-              Explore the lanes we highlight here
-            </h2>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {supportTasks.map((task) => {
-                const Icon = taskIcons[task.key as TaskKey] || FileText
-                return (
-                  <Link
-                    key={task.key}
-                    href={task.route}
-                    className="group flex items-start gap-3 rounded-2xl border-2 border-[#e4d4f2] bg-gradient-to-br from-white to-[#faf5ff] p-5 transition hover:border-[#9929ea]/40"
-                  >
-                    <span className="mt-0.5 flex h-9 w-9 items-center justify-center rounded-xl bg-[#faeb92]/60 text-[#2d0a3d]">
-                      <Icon className="h-4 w-4" />
-                    </span>
-                    <div>
-                      <h3
-                        className="text-lg font-bold text-[#0a0a0a] group-hover:text-[#9929ea]"
-                        style={{ fontFamily: 'var(--font-lobster), cursive' }}
-                      >
-                        {task.label}
-                      </h3>
-                      <p className="mt-1 text-sm text-[#4a3b55]">{task.description}</p>
-                    </div>
-                  </Link>
-                )
-              })}
-            </div>
-            <p className="mt-6 text-center text-xs text-[#5c4a6a]">
-              Other task routes on this site stay available by URL and search—this row only calls out what the navigation
-              features first.
-            </p>
-          </div>
-        </section>
-      ) : null}
     </main>
   )
 }
@@ -675,7 +607,6 @@ export default async function HomePage() {
   ).filter(({ posts }) => posts.length)
 
   const primaryTask = enabledTasks.find((task) => task.key === recipe.primaryTask) || enabledTasks[0]
-  const supportTasks = enabledTasks.filter((task) => task.key !== primaryTask?.key)
   const listingPosts = taskFeed.find(({ task }) => task.key === 'listing')?.posts || []
   const classifiedPosts = taskFeed.find(({ task }) => task.key === 'classified')?.posts || []
   const articlePosts = taskFeed.find(({ task }) => task.key === 'article')?.posts || []
@@ -724,7 +655,6 @@ export default async function HomePage() {
           primaryTask={primaryTask}
           articlePosts={articlePosts}
           imagePosts={imagePosts}
-          supportTasks={supportTasks}
         />
       ) : null}
       {productKind === 'visual' ? (
